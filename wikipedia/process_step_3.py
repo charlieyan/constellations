@@ -134,7 +134,7 @@ def process_svg_step_3(constellation_dir, do_plt = True):
                     next_point_decoded[1] = -1 * next_point_decoded[1]
                     xs = [last_point_decoded[0], point_decoded[0], next_point_decoded[0]]
                     ys = [last_point_decoded[1], point_decoded[1], next_point_decoded[1]]
-                    plt.plot(xs, ys, linewidth=2, c='g', alpha=0.5)
+                    plt.plot(xs, ys, linewidth=2, c='g', alpha=1.0)
                     dist_1, dist_2 = get_distances(last_point_decoded, point_decoded, next_point_decoded)
                     if dist_1 > threshold and dist_2 > threshold:
                         key_3 = key_2 + "_" + str(j)

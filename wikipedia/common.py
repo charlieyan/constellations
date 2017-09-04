@@ -173,3 +173,6 @@ def sorted_and_indices(array, cb):
 
 def cb_for_points(point):
     return encode(point)
+
+def passthrough(d):
+    return d
