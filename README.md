@@ -1,6 +1,6 @@
 # constellations
 
-![Alt text](./wikipedia/svgs/Orion/source.svg)<img src="./wikipedia/svgs/Orion/source.svg">
+![Alt text](./wikipedia/svgs/Orion/source.svg "From Wikipedia")
 
 ![Alt text](/wikipedia/svgs/Orion/step_1_plot.png?raw=true "Paths processed")
 
