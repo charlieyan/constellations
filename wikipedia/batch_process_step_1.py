@@ -13,7 +13,7 @@ import os
 
 import re, urlparse
 
-from process import *
+from process_step_1 import *
 
 svgs_dir = "./svgs/"
 svgs_mkdir_cmd = "mkdir " + svgs_dir
@@ -40,10 +40,12 @@ for i, c in enumerate(data):
 
     data_p = constellation_dir + "/data.p"
     if os.path.isfile(data_p):
+        good_constellations.append(
+            constellation_svg)
         continue
 
     print "processing: ", constellation_svg
-    res = process_svg(constellation_svg, True)
+    res = process_svg_step_1(constellation_svg, True)
     if not res:
         print "something failed: ", constellation_svg
         bad_constellations.append(constellation_svg)
