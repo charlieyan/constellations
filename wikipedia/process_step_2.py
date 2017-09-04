@@ -76,7 +76,6 @@ def process_svg_step_2_2(data_pickle, do_plt = True):
             transform = data_to_save[
                 "path_to_transform_map"][path]
             plot_path(path, transform, 'b')
-
     for p in path_to_points_map.keys():
         if p not in ignore_paths:
             t = data_to_save["path_to_transform_map"][p]
