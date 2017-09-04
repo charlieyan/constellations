@@ -57,6 +57,7 @@ def path_to_points(d_str):
 def plot_path(d_str, transform, c):
     path_points = path_to_points(d_str)
     last_point = []
+    all_segments = []
     for j, p in enumerate(path_points):
         if (p["type"] == "M"):
             last_point = apply_matrix(transform,
@@ -89,7 +90,9 @@ def plot_path(d_str, transform, c):
                 map(lambda x: -1 * x, ys),
                 # ys,
                 linewidth=2, c=c, alpha=0.5)
+            all_segments.append([last_point, new_point])
             last_point = new_point
+    return all_segments
 
 def apply_matrix(matrix, point):
     # a pass through matrix is [1, 0, 0, 1, 0, 0]
@@ -161,3 +164,12 @@ def find_n_closest_point(points, point, n):
         if i in indices:
             filtered.append(p)
     return filtered
+
+def sorted_and_indices(array, cb):
+    array = sorted(array, key = lambda k: cb(k))
+    indices = sorted(range(len(array)),
+        key=lambda k: cb(array[k]))
+    return array, indices
+
+def cb_for_points(point):
+    return encode(point)

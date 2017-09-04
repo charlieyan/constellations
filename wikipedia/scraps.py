@@ -664,3 +664,26 @@ for i, p in enumerate(output_paths):
 plt.show()
 
 # decoded_points = map(lambda x: decode(x), points)
+
+                
+    print "connectivity_map: \n", connectivity_map.keys()
+    for p in constellation_points:
+        print connectivity_map[p]
+        # decoded = decode(p)
+        # print decoded
+
+    # get all points, making bounding box
+    b = BoundingBox(points)
+    center = [
+        (b.maxx - b.minx) / 2.0,
+        (b.maxx - b.minx) / 2.0]
+    closest_point = find_n_closest_point(
+        points, center, 1)[0]
+    e = encode(closest_point)
+    path_of_interest = points_to_path_map[e]
+    path_of_interest_indices = map(lambda x: path_to_p_key_idx_map[x],
+        path_of_interest)
+    indices_file = directory + "/step_2_1.txt"
+    with open(indices_file, "w") as text_file:
+        text_file.write(encode(
+            path_of_interest_indices))
