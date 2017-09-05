@@ -3,7 +3,8 @@
 * This is a dataset of __2D geometries__ for 86/88 [IAU endorsed constellations](https://en.wikipedia.org/wiki/88_modern_constellations#List).
 * The two missing ones are __Mensa__ and __Microscopium__
     * This is because the Wikipedia image for those constellations have no lines
-* To visualize any of those 86 constellations after checkout run
+* To visualize any of those 86 constellations after checkout go into directory and run
+`sudo pip install -r requirements.txt`
 `cd wikipedia && ./visualize.py --cname Orion`
 * This repo also has the python code for the whole pipeline
     * The workflow starts with scraping all the Wikipedia sites for the svg link and downloading svgs to the correct places (pull_all_svgs.py)
