@@ -7,7 +7,6 @@ from copy import deepcopy
 import numpy as np
 import sys, os, math
 import cairo
-import svg
 import pickle
 import matplotlib.pyplot as plt
 import matplotlib.path as mpath
