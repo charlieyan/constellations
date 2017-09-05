@@ -4,8 +4,10 @@
 * The two missing ones are __Mensa__ and __Microscopium__
     * This is because the Wikipedia image for those constellations have no lines
 * To visualize any of those 86 constellations after checkout go into directory and run
-`sudo pip install -r requirements.txt`
-`cd wikipedia && ./visualize.py --cname Orion`
+~~~
+sudo pip install -r requirements.txt
+cd wikipedia && ./visualize.py --cname Orion
+~~~
 * This repo also has the python code for the whole pipeline
     * The workflow starts with scraping all the Wikipedia sites for the svg link and downloading svgs to the correct places (pull_all_svgs.py)
     * batch_process_step_1.py then goes to each svg file and parses out the path objects using svgpathtools, groups them by hex color, and picks out the one that Wikipedia uses for the lines of the constellation (#addf8a)
