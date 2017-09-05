@@ -95,10 +95,12 @@ constellation_dir = svgs_dir + cname + "/"
 lookup_arg = location.split(":")[1]
 lookup_cmd = "./process_step_3.py --dir "\
     + constellation_dir + " --lookup " + lookup_arg
-os.system(lookup_cmd)
-expected_png = constellation_dir + "step_3_" + lookup_arg + ".png"
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-img=mpimg.imread(expected_png)
-imgplot = plt.imshow(img)
-plt.show()
+print "after running the pipeline on the specific constellation, run this command: "
+print lookup_cmd
+# os.system(lookup_cmd)
+# expected_png = constellation_dir + "step_3_" + lookup_arg + ".png"
+# import matplotlib.pyplot as plt
+# import matplotlib.image as mpimg
+# img=mpimg.imread(expected_png)
+# imgplot = plt.imshow(img)
+# plt.show()
