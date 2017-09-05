@@ -16,6 +16,10 @@ import matplotlib.patches as patches
 
 from ego_atheris.interaction.utils import Util
 
+def ensure(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
 def get_transform_matrix(s):
     numbers = map(lambda x: float(x),
         s.replace("matrix(", "").replace(")", "").split(","))

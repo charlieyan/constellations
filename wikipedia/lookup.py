@@ -27,8 +27,8 @@ def closest_in_r_and_as(r_and_as, ratio, angle):
             cost = c
     return r_and_as[best_idx], cost
 
-svgs_dir = "./svgs/"
-data_pickle = svgs_dir + "/all_ratio_and_angle_map.p"
+data_dir = "./data/"
+data_pickle = data_dir + "/all_ratio_and_angle_map.p"
 data_to_save = pickle.load(open(data_pickle, "rb"))
 r_and_a = data_to_save["all_ratio_and_angle_map"]
 r_and_a_2 = data_to_save["all_ratio_and_angle_map_2"]
@@ -71,6 +71,8 @@ for i, l in enumerate(legs):
             k = map(lambda x: str(x), sorted([i,j]))
             k = "_".join(k)
             angle = round(angle_map[k], 3)
+            # just 3 choose 2 of legs
+
             key, best_cost = closest_in_r_and_as(
                 r_and_as, ratio, angle)
             if best_cost < overall_best_cost:
@@ -84,4 +86,19 @@ for i, l in enumerate(legs):
 best_key = map(lambda x: str(x), best_key)
 best_key = ":".join(best_key)
 print "best_key: ", best_key
-print "where it lives: ", r_and_a_2[best_key]
+location = r_and_a_2[best_key]
+print "where it lives: ", location
+
+svgs_dir = "./svgs/"
+cname = location.split(":")[0]
+constellation_dir = svgs_dir + cname + "/"
+lookup_arg = location.split(":")[1]
+lookup_cmd = "./process_step_3.py --dir "\
+    + constellation_dir + " --lookup " + lookup_arg
+os.system(lookup_cmd)
+expected_png = constellation_dir + "step_3_" + lookup_arg + ".png"
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+img=mpimg.imread(expected_png)
+imgplot = plt.imshow(img)
+plt.show()

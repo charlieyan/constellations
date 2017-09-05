@@ -32,12 +32,12 @@ for i, c in enumerate(data):
     _, r_and_a, r_and_a_2\
         = process_svg_step_3(constellation_dir)
     all_ratio_and_angle_map[c_name] = r_and_a
-
     for k in r_and_a_2:
         all_ratio_and_angle_map_2[k] =\
             c_name + ":" + r_and_a_2[k]
 
-data_pickle = svgs_dir + "/all_ratio_and_angle_map.p"
+ensure(os.path.realpath("./data/"))
+data_pickle = "./data/all_ratio_and_angle_map.p"
 data_to_save = {}
 data_to_save["all_ratio_and_angle_map"]\
     = all_ratio_and_angle_map

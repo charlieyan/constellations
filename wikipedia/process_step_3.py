@@ -62,7 +62,7 @@ def get_angle(last, this, n):
     line_b = [n, this]
     return ang(line_a, line_b)
 
-def process_svg_step_3(constellation_dir, do_plt = True):
+def process_svg_step_3(constellation_dir, lookup = "", do_plt = True):
     data_pickle = constellation_dir + "/step_1.p"
     directory = os.path.realpath(os.path.dirname(data_pickle))
     data_to_save = pickle.load(open(data_pickle, "rb"))
@@ -78,6 +78,17 @@ def process_svg_step_3(constellation_dir, do_plt = True):
     data_pickle = constellation_dir + "/step_2_2.p"
     step_2_data_pickle = pickle.load(open(data_pickle, "rb"))
     path_of_interest_indices = step_2_data_pickle["paths"]
+
+    lookup_suffix = ""
+    lookup_key = ""
+    lookup_index_1 = -1
+    lookup_index_2 = -1
+    if lookup != "":
+        lookup_suffix = "_" + lookup
+        lookup_tokens = lookup.split("_")
+        lookup_key = lookup_tokens[0]
+        lookup_index_1 = int(lookup_tokens[1])
+        lookup_index_2 = int(lookup_tokens[2])
 
     all_segments = []
     if do_plt:
@@ -103,6 +114,9 @@ def process_svg_step_3(constellation_dir, do_plt = True):
     threshold = 15.0
     done = False
     for last_point in graph_map:
+        if lookup_key != "":
+            if last_point != lookup_key:
+                continue
         added_something = False
         if done:
             break
@@ -114,6 +128,9 @@ def process_svg_step_3(constellation_dir, do_plt = True):
         sorted_points, _ =\
             sorted_and_indices(points, cb_for_points)
         for i, point in enumerate(sorted_points):
+            if lookup_index_1 >= 0:
+                if i != lookup_index_1:
+                    continue
             if done:
                 break
             if point in graph_map:
@@ -127,6 +144,9 @@ def process_svg_step_3(constellation_dir, do_plt = True):
                 sorted_next_points, _=\
                     sorted_and_indices(next_points, cb_for_points)
                 for j, next_point in enumerate(sorted_next_points):
+                    if lookup_index_2 >= 0:
+                        if j != lookup_index_2:
+                            continue
                     if done:
                         break
                     next_point_decoded = decode(
@@ -160,7 +180,7 @@ def process_svg_step_3(constellation_dir, do_plt = True):
                         pass
         # print "finished something", added_something
 
-    plot_png = directory + "/step_3.png"
+    plot_png = directory + "/step_3"+lookup_suffix+".png"
     plt.grid(True)
     ax.set_xlim(0, 600)
     ax.set_ylim(-600, 0)
@@ -169,13 +189,16 @@ def process_svg_step_3(constellation_dir, do_plt = True):
     ax.apply_aspect()
     fig.savefig(plot_png)
 
-    data_pickle = directory + "/step_3.p"
-    data_to_save = {}
-    data_to_save["graph_map"] = graph_map
-    data_to_save["ratio_and_angle_map"] = ratio_and_angle_map
-    data_to_save["ratio_and_angle_map_2"] = ratio_and_angle_map_2
-    pickle.dump(data_to_save, open(data_pickle, "wb"))
-    print "dumped data_pickle! ", data_pickle
+    if (lookup == ""):
+        data_pickle = directory + "/step_3.p"
+        data_to_save = {}
+        data_to_save["graph_map"] = graph_map
+        data_to_save["ratio_and_angle_map"] = ratio_and_angle_map
+        data_to_save["ratio_and_angle_map_2"] = ratio_and_angle_map_2
+        pickle.dump(data_to_save, open(data_pickle, "wb"))
+        print "dumped data_pickle! ", data_pickle
+    else:
+        print "only saving pickle if lookup empty"
 
     return graph_map, ratio_and_angle_map, ratio_and_angle_map_2
 
@@ -184,5 +207,10 @@ if __name__ == "__main__":
         "get points in the constellation with 2 lines attached")
     parser.add_argument('--dir',
         type=str, required=True, help='data pickle path')
+    parser.add_argument('--lookup',
+        type=str, required=False, help='key from lookup', default="")
     args = parser.parse_args()
-    graph, r_and_a, r_and_a_2 = process_svg_step_3(args.dir)
+    graph, r_and_a, r_and_a_2 = process_svg_step_3(args.dir, args.lookup)
+
+# example after lookup
+# ./process_step_3.py --dir ./svgs/Sagittarius/ --lookup 272,255_2_2

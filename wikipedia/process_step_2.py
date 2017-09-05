@@ -69,13 +69,15 @@ def process_svg_step_2_2(data_pickle, do_plt = True):
     print "path_of_interest_indices: ", path_of_interest_indices
     fig, ax = plt.subplots()
     ignore_paths = []
+    all_segments = []
     for i in path_of_interest_indices:
         path = s_p_key_paths[i].d()
         ignore_paths.append(path)
         if do_plt:
             transform = data_to_save[
                 "path_to_transform_map"][path]
-            plot_path(path, transform, 'b')
+            segments = plot_path(path, transform, 'b')
+            all_segments += segments
     for p in path_to_points_map.keys():
         if p not in ignore_paths:
             t = data_to_save["path_to_transform_map"][p]
@@ -92,9 +94,10 @@ def process_svg_step_2_2(data_pickle, do_plt = True):
     data_pickle = directory + "/step_2_2.p"
     data_to_save = {}
     data_to_save["paths"] = path_of_interest_indices
+    data_to_save["all_segments"] = all_segments
     pickle.dump(data_to_save, open(data_pickle, "wb"))
     print "dumped data_pickle! ", data_pickle
-    return True
+    return all_segments
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description = 
@@ -102,4 +105,4 @@ if __name__ == "__main__":
     parser.add_argument('--file',
         type=str, required=True, help='data pickle path')
     args = parser.parse_args()
-    res = process_svg_step_2_2(args.file)
+    all_segments = process_svg_step_2_2(args.file)
