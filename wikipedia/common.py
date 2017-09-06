@@ -13,7 +13,11 @@ import matplotlib.path as mpath
 from matplotlib.path import Path
 import matplotlib.patches as patches
 
-from ego_atheris.interaction.utils import Util
+def insert_into_dict_of_arrays(d, k, v):
+    if k in d.keys():
+        d[k].append(v)
+    else:
+        d[k] = [v]
 
 def ensure(directory):
     if not os.path.exists(directory):

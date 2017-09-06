@@ -15,7 +15,6 @@ from matplotlib.path import Path
 import matplotlib.patches as patches
 
 from common import *
-from ego_atheris.interaction.utils import Util
 
 Path = mpath.Path
 
@@ -37,7 +36,7 @@ def process_svg_step_1(svgpath, do_plt):
                 d["rgb"] = str(d["style"]).split(
                     "rgb")[1].split(")")[0].replace("(","")
                 h = percents_to_hex_code(d["rgb"])
-                Util.insert_into_dict_of_arrays(
+                insert_into_dict_of_arrays(
                     color_gs, h, d)
 
     if do_plt:
@@ -126,18 +125,17 @@ def process_svg_step_1(svgpath, do_plt):
                         linewidth=2, c=colors[i], alpha=0.5)
 
                 c = encode(last_point)
-                Util.insert_into_dict_of_arrays(
+                insert_into_dict_of_arrays(
                     points_to_path_map, c, path.d())
-                Util.insert_into_dict_of_arrays(
+                insert_into_dict_of_arrays(
                     path_to_points_map, path.d(), c)
 
                 d = encode(new_point)
-                Util.insert_into_dict_of_arrays(
+                insert_into_dict_of_arrays(
                     points_to_path_map, d, path.d())
-                Util.insert_into_dict_of_arrays(
+                insert_into_dict_of_arrays(
                     path_to_points_map, path.d(), d)
-
-                Util.insert_into_dict_of_arrays(
+                insert_into_dict_of_arrays(
                     connectivity_map, c, d)
                 # map stores paths from start to end
 

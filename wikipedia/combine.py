@@ -15,7 +15,6 @@ from matplotlib.path import Path
 import matplotlib.patches as patches
 
 from common import *
-from ego_atheris.interaction.utils import Util
 
 data_pickle = "./svgs/Corvus/step_1.p"
 directory = os.path.realpath(os.path.dirname(data_pickle))

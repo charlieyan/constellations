@@ -12,7 +12,6 @@ from matplotlib.path import Path
 import matplotlib.patches as patches
 
 from common import *
-from ego_atheris.interaction.utils import Util
 
 Path = mpath.Path
 

@@ -12,7 +12,6 @@ from matplotlib.path import Path
 import matplotlib.patches as patches
 
 from common import *
-from ego_atheris.interaction.utils import Util
 
 Path = mpath.Path
 
@@ -55,7 +54,7 @@ if __name__ == "__main__":
     rounded = map(lambda y: map(lambda x: int(x), y), points)
     rounded_to_originals = {}
     for i, p in enumerate(rounded):
-        Util.insert_into_dict_of_arrays(
+        insert_into_dict_of_arrays(
             rounded_to_originals, encode(p), points[i])
     rounded_to_avgs = {}
     for r in rounded_to_originals:

@@ -16,7 +16,6 @@ import matplotlib.patches as patches
 import math
 
 from common import *
-from ego_atheris.interaction.utils import Util
 
 Path = mpath.Path
 np.set_printoptions(precision=3)
@@ -105,7 +104,7 @@ def process_svg_step_3(constellation_dir, lookup = "", do_plt = True):
     for seg in all_segments:
         last_point = map(lambda x: myround(x, 1), seg[0])
         new_point = map(lambda x: myround(x, 1), seg[1])
-        Util.insert_into_dict_of_arrays(graph_map,
+        insert_into_dict_of_arrays(graph_map,
             encode(last_point),
             encode(new_point))
 
