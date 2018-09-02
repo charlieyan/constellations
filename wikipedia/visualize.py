@@ -44,6 +44,12 @@ def visualize(cname):
         all_points.append(last_point)
         all_points.append(point)
     b = BoundingBox(all_points)
+
+    centroid_x, centroid_y = b.centroid()
+    print "HELLO!", centroid_x
+    plt.scatter(
+        centroid_x, -centroid_y)
+
     plt.grid(True)
     ax.set_xlim(b.minx, b.maxx)
     ax.set_ylim(-b.maxy, -b.miny)

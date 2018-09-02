@@ -151,6 +151,11 @@ class BoundingBox(object):
                         return True
         return False
 
+    def centroid(self):
+        avg_x = (self.minx + self.maxx) / 2.0
+        avg_y = (self.miny + self.maxy) / 2.0
+        return avg_x, avg_y
+
 def decode(e):
     return map(lambda x: float(x), e.split(","))
 
