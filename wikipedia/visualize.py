@@ -19,7 +19,7 @@ np.set_printoptions(precision=3)
 np.set_printoptions(suppress=True)
 np.set_printoptions(formatter={'float': '{: 0.3f}'.format})
 
-def visualize(cname):
+def visualize(cname, mirror = False):
     ensure(os.path.realpath("./data/"))
     data_pickle = "./data/all_segments.p"
     data_to_save = pickle.load(open(data_pickle, "rb"))
@@ -46,12 +46,16 @@ def visualize(cname):
     b = BoundingBox(all_points)
 
     centroid_x, centroid_y = b.centroid()
-    print "HELLO!", centroid_x
     plt.scatter(
         centroid_x, -centroid_y)
 
     plt.grid(True)
-    ax.set_xlim(b.minx, b.maxx)
+
+    if mirror:
+        print "mirroring"
+        ax.set_xlim(b.maxx, b.minx)
+    else:
+        ax.set_xlim(b.minx, b.maxx)
     ax.set_ylim(-b.maxy, -b.miny)
     ax.set_aspect('equal')
     plt.draw()
@@ -62,8 +66,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description = "plot constellation in 2D!")
     parser.add_argument('--cname', type=str, required=True,
         help='name of constellation, substitute _ for spaces')
+    parser.add_argument('--mirror', type=bool, default=False,
+        help='mirror the image or not')
     args = parser.parse_args()
-    visualize(args.cname)
+    visualize(args.cname, args.mirror)
 
 # examples
 # ./visualize.py --cname Aquarius
