@@ -13,9 +13,6 @@ import matplotlib.patches as patches
 from common import *
 import copy
 
-from wall_borg.interaction.utils import *
-from wall_borg.interaction.sidefinding import *
-# from c_01_build_adjacency_graph_dev import *
 import networkx as nx
 
 np.set_printoptions(precision=3)
